@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.dto.CompareDto;
 import com.example.demo.rpc.FreamWork;
+import com.example.demo.util.IoUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class DemoApplicationTests {
         CompareDto compareDto = new CompareDto();
         compareDto.setType("2222");
         Object invoke = freamWork.methodInvoke("com.example.demo.rpc.FreamWork", "testRpc", compareDto);
-        byte[] objectByte = FreamWork.getObjectByte(invoke);
-        Object objectByByte = FreamWork.getObjectByByte(objectByte);
+        byte[] objectByte = IoUtils.getObjectByte(invoke);
+        Object objectByByte = IoUtils.getObjectByByte(objectByte);
         System.out.println(objectByByte);
     }
 
