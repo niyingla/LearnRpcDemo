@@ -3,7 +3,7 @@ package com.example.demo.util;
 import java.io.*;
 
 /**
- * @author tangsg
+ * @author pikaqiu
  */
 public class IoUtils {
 
@@ -35,8 +35,8 @@ public class IoUtils {
         ByteArrayInputStream byteInputStream = new ByteArrayInputStream(bytes);
         ObjectInputStream os = new ObjectInputStream(byteInputStream);
         Object readObject = os.readObject();
-        byteInputStream.close();
         os.close();
+        byteInputStream.close();
         return readObject;
     }
 

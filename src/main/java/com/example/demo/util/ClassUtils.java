@@ -1,7 +1,15 @@
 package com.example.demo.util;
 
+import com.example.demo.dto.CompareDto;
+import com.example.demo.rpc.RpcClient;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.util.Arrays;
+
 /**
- * @author tangsg
+ * @author pikaqiu
  */
 public class ClassUtils {
     /**
@@ -19,5 +27,28 @@ public class ClassUtils {
             }
         }
         return classType;
+    }
+
+    /**
+     * 获取接口代理
+     * @param intefaceClass
+     * @param <T>
+     * @return
+     */
+    public static  <T> T getInterfaceInfo(Class<T> intefaceClass) {
+        Class[] interfaceClassArray = new Class[]{intefaceClass};
+        T server = (T) Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(),interfaceClassArray , new InvocationHandler() {
+
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                //判断是否是接口自定义方法
+                Method[] declaredMethods = intefaceClass.getDeclaredMethods();
+                if (Arrays.asList(method).indexOf(method) < 0) {
+                    return method.invoke(proxy, args);
+                 }
+                return RpcClient.sendRpcRequest(method.getDeclaringClass().getPackage().getName(), method.getName(), args);
+            }
+        });
+        return server;
     }
 }

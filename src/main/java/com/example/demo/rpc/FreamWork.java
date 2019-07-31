@@ -6,6 +6,7 @@ import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -14,14 +15,20 @@ import java.lang.reflect.Method;
 
 
 /**
- * @author tangsg
+ * @author pikaqiu
  */
-@Service
+@Component
+
 public class FreamWork {
 
     @Autowired
     private ApplicationContext applicationContext;
 
+    /**
+     * 测试方法
+     * @param compareDto
+     * @return
+     */
     public CompareDto testRpc(CompareDto compareDto) {
         compareDto.setType(compareDto.getType() + "3333");
         return compareDto;
@@ -29,7 +36,7 @@ public class FreamWork {
 
     /**
      *  通过反射调用目标方法
-     * @param classPath
+     * @param classPathStr
      * @param methodStr
      * @param param
      * @return
@@ -38,10 +45,10 @@ public class FreamWork {
      * @throws InvocationTargetException
      * @throws IllegalAccessException
      */
-    public Object methodInvoke(String classPath,String methodStr,Object ... param) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public Object methodInvoke(String classPathStr,String methodStr,Object ... param) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         ClassLoader loader = ClassLoader.getSystemClassLoader();
         //获取类实例
-        Class clazz = loader.loadClass(classPath);
+        Class clazz = loader.loadClass(classPathStr);
         Object contextBean = applicationContext.getBean(clazz);
         //获取参数类型
         Class[] classType = ClassUtils.getClassType(param);
