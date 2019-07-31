@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 public class RpcServer {
 
 
+    public Object sss(){
+        return null;
+    }
 
 
 }

@@ -36,7 +36,9 @@ public class ClassUtils {
      * @return
      */
     public static  <T> T getInterfaceInfo(Class<T> intefaceClass) {
+
         Class[] interfaceClassArray = new Class[]{intefaceClass};
+
         T server = (T) Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(),interfaceClassArray , new InvocationHandler() {
 
             @Override
@@ -46,7 +48,7 @@ public class ClassUtils {
                 if (Arrays.asList(method).indexOf(method) < 0) {
                     return method.invoke(proxy, args);
                  }
-                return RpcClient.sendRpcRequest(method.getDeclaringClass().getPackage().getName(), method.getName(), args);
+                return RpcClient.sendRpcRequest(method.getDeclaringClass().getPackage().getName(),intefaceClass, method.getName(), args);
             }
         });
         return server;

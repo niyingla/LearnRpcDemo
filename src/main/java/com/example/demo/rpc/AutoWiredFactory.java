@@ -16,6 +16,9 @@ import java.util.List;
 @Component
 public class AutoWiredFactory {
 
+    /**
+     * 需要加載实例列表
+     */
     private List<Class> rpcInterFace = Arrays.asList(UserInfoService.class);
 
     @Autowired
