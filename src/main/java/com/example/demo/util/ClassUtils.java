@@ -45,8 +45,8 @@ public class ClassUtils {
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 //判断是否是接口自定义方法
                 Method[] declaredMethods = intefaceClass.getDeclaredMethods();
-                if (Arrays.asList(method).indexOf(method) < 0) {
-                    return method.invoke(proxy, args);
+                if (Arrays.asList(declaredMethods).indexOf(method) < 0) {
+                    return null;
                  }
                 return RpcClient.sendRpcRequest(method.getDeclaringClass().getPackage().getName(),intefaceClass, method.getName(), args);
             }

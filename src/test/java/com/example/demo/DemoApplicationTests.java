@@ -5,6 +5,7 @@ import com.example.demo.rpc.AutoWiredFactory;
 import com.example.demo.rpc.FreamWork;
 import com.example.demo.service.UserInfoService;
 import com.example.demo.util.IoUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import javax.annotation.PostConstruct;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Slf4j
 public class DemoApplicationTests {
     @Autowired
     private FreamWork freamWork;
@@ -40,7 +42,9 @@ public class DemoApplicationTests {
     @Test
     public void cxt()throws Exception{
         UserInfoService bean = applicationContext.getBean(UserInfoService.class);
-        System.out.println(bean.getCompareDto("2333"));
+        log.info(bean.getCompareDto("2333").toString());
+        log.info(bean.toString());
+
 
     }
 

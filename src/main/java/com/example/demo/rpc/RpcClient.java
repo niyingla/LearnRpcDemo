@@ -24,19 +24,16 @@ public class RpcClient {
 
 
     public static Object sendRpcRequest(String classPath,Class intefaceClass,String method,Object[] args){
-        //todo 发送远程请求
-        String param = "----包路径是: " + classPath + "----方法名是：" + method + "----参数是：" + args;
-        System.out.println(param);
-
         //参数对象转换成能字节  远程调用
         RpcServerCase rpcServerCase = (RpcServerCase) intefaceClass.getAnnotation(RpcServerCase.class);
         if(rpcServerCase != null){
            log.info(rpcServerCase.serverName());
         }
-
+        //todo 发送远程请求
+        log.info("发送远程请求，请求类：{} 方法：{} 参数：{}",classPath,method,args);
         //模拟返回
         CompareDto compareDto = new CompareDto();
-        compareDto.setType(param);
+        compareDto.setType("22222");
         return compareDto;
     }
 
