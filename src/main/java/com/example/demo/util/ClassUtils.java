@@ -1,6 +1,5 @@
 package com.example.demo.util;
 
-import com.example.demo.dto.CompareDto;
 import com.example.demo.rpc.RpcClient;
 
 import java.lang.reflect.InvocationHandler;
@@ -46,7 +45,8 @@ public class ClassUtils {
                 //判断是否是接口自定义方法
                 Method[] declaredMethods = intefaceClass.getDeclaredMethods();
                 if (Arrays.asList(declaredMethods).indexOf(method) < 0) {
-                    return null;
+                    //super
+                    return method.invoke(proxy,args);
                  }
                 return RpcClient.sendRpcRequest(method.getDeclaringClass().getPackage().getName(),intefaceClass, method.getName(), args);
             }

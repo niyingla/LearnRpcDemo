@@ -2,16 +2,8 @@ package com.example.demo.rpc;
 
 import com.example.demo.annotation.RpcServerCase;
 import com.example.demo.dto.CompareDto;
-import com.example.demo.service.UserInfoService;
-import com.example.demo.util.ClassUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-
-import java.io.ObjectInputStream;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 
 /**
  * 远程调用服务客户端类
