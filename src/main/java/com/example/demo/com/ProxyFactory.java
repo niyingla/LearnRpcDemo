@@ -16,7 +16,7 @@ import java.util.Arrays;
  */
 @Slf4j
 @Component
-public class ProxyFactoryComponent {
+public class ProxyFactory {
     /**
      * 获取接口代理
      * @param intefaceClass
@@ -44,7 +44,7 @@ public class ProxyFactoryComponent {
             public String toString(){
                 Long address = null;
                 try {
-                    address = Addresser.addressOf(ProxyFactoryComponent.this);
+                    address = Addresser.addressOf(ProxyFactory.this);
                 }catch (Exception e){
                     e.printStackTrace();
                     log.error("获取内存地址错误");
