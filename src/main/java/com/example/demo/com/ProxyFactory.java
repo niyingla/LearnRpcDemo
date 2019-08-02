@@ -2,7 +2,7 @@ package com.example.demo.com;
 
 import com.example.demo.rpc.RpcClient;
 import com.example.demo.util.Addresser;
-import com.example.demo.util.ClassUtils;
+import com.sun.org.apache.regexp.internal.RE;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -34,22 +34,40 @@ public class ProxyFactory {
                 //判断是否是接口自定义方法
                 Method[] declaredMethods = intefaceClass.getDeclaredMethods();
                 if (Arrays.asList(declaredMethods).indexOf(method) < 0) {
-                    return method.invoke(proxy,args);
+                    //todo 后期优化
+                    switch (method.getName()){
+                        case "toString":
+                            return toString();
+                        case "equals":
+                            return equals(args);
+                        default:
+                            return null;
+                    }
                 }
                 return RpcClient.sendRpcRequest(method.getDeclaringClass().getPackage().getName(),intefaceClass, method.getName(), args);
             }
 
             @Override
-            public String toString(){
+            public boolean equals(Object obj) {
+                return toString().equals(obj.toString());
+            }
+
+            @Override
+            public String toString() {
+                return intefaceClass.getSimpleName() + "@" + Integer.toHexString(hashCode());
+            }
+
+            @Override
+            public int hashCode() {
                 Long address = null;
                 try {
-                    address = Addresser.addressOf(ProxyFactory.this);
+                     address = Addresser.addressOf(this);
                 }catch (Exception e){
-                    e.printStackTrace();
-                    log.error("获取内存地址错误");
+
                 }
-                return "$proxy"+intefaceClass.getClass().getSimpleName()+"@"+address;
+                return address.intValue();
             }
+
         });
         return server;
     }
