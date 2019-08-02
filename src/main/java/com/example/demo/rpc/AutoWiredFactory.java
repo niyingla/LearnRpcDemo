@@ -1,6 +1,6 @@
 package com.example.demo.rpc;
 
-import com.example.demo.com.ProxyFactoryComponent;
+import com.example.demo.com.ProxyFactory;
 import com.example.demo.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -17,7 +17,7 @@ import java.util.List;
 public class AutoWiredFactory {
 
     @Autowired
-    private ProxyFactoryComponent proxyFactoryComponent;
+    private ProxyFactory proxyFactory;
 
     /**
      * 需要加載实例列表
@@ -29,7 +29,7 @@ public class AutoWiredFactory {
 
 
     public void setBean(Class interfaceServer) {
-        Object interfaceInfo = proxyFactoryComponent.getInterfaceInfo(interfaceServer);
+        Object interfaceInfo = proxyFactory.getInterfaceInfo(interfaceServer);
         defaultListableBeanFactory.registerSingleton(interfaceServer.getName(), interfaceInfo);
 
     }

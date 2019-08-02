@@ -34,7 +34,6 @@ public class ProxyFactory {
                 //判断是否是接口自定义方法
                 Method[] declaredMethods = intefaceClass.getDeclaredMethods();
                 if (Arrays.asList(declaredMethods).indexOf(method) < 0) {
-                    //super
                     return method.invoke(proxy,args);
                 }
                 return RpcClient.sendRpcRequest(method.getDeclaringClass().getPackage().getName(),intefaceClass, method.getName(), args);
@@ -49,7 +48,7 @@ public class ProxyFactory {
                     e.printStackTrace();
                     log.error("获取内存地址错误");
                 }
-                return "proxy"+intefaceClass+"@"+address;
+                return "$proxy"+intefaceClass.getClass().getSimpleName()+"@"+address;
             }
         });
         return server;
