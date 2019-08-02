@@ -41,7 +41,7 @@ public class DemoApplicationTests {
     public void cxt()throws Exception{
         UserInfoService bean = applicationContext.getBean(UserInfoService.class);
         log.info(bean.getCompareDto("2333").toString());
-
+        log.info(bean.toString());
 
     }
 

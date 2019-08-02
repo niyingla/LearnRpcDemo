@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author tangsg
+ * @author pikaqiu
  */
 @Component
 @Slf4j
@@ -25,7 +25,7 @@ public class RpcServerPool {
     @PostConstruct
     public void initAllConnect(){
 
-        RpcServerPoolBuild rpcServerPoolBuild = new RpcServerPoolBuild();
+        RpcServerBuild rpcServerPoolBuild = new RpcServerBuild();
         rpcServerPoolBuild.serverAdd("user", "127.0.0.1", "7001")
                 .serverAdd("user", "127.0.0.1", "7002");
 
@@ -33,7 +33,7 @@ public class RpcServerPool {
             RpcServerDto rpcServerDto = serverDtoMap.get(serverName);
             for (RpcServerDto.Example example : rpcServerDto.getExamples()) {
                 //todo 循环创建连接
-                log.info("创建连接：ip: {} ,port: {}",example.getIp(),example.getPort());
+                log.info("创建连接 服务: {}：ip: {} ,port: {}", serverName, example.getPort());
                 //保存连接
             }
         }
@@ -50,9 +50,9 @@ public class RpcServerPool {
         return null;
     }
 
-    public class RpcServerPoolBuild{
+    public class RpcServerBuild{
 
-          public RpcServerPoolBuild serverAdd(String serverName,String ip,String port){
+          public RpcServerBuild serverAdd(String serverName,String ip,String port){
 
               RpcServerDto serverDto = serverDtoMap.get(serverName);
 

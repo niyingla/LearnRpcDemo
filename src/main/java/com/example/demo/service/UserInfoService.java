@@ -4,7 +4,7 @@ import com.example.demo.annotation.RpcServerCase;
 import com.example.demo.dto.CompareDto;
 
 /**
- * @author tangsg
+ * @author pikaqiu
  */
 
 @RpcServerCase(serverName = "user")

@@ -1,6 +1,7 @@
 package com.example.demo.util;
 
 import com.example.demo.rpc.RpcClient;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -10,13 +11,14 @@ import java.util.Arrays;
 /**
  * @author pikaqiu
  */
+@Slf4j
 public class ClassUtils {
     /**
      * 获取参数类型
      * @param param
      * @return
      */
-    public static Class [] getClassType(Object[] param) {
+    public static Class[] getClassType(Object[] param) {
         Class[] classType = null;
         if (param != null && param.length > 0) {
             classType = new Class[param.length];
@@ -28,29 +30,4 @@ public class ClassUtils {
         return classType;
     }
 
-    /**
-     * 获取接口代理
-     * @param intefaceClass
-     * @param <T>
-     * @return
-     */
-    public static  <T> T getInterfaceInfo(Class<T> intefaceClass) {
-
-        Class[] interfaceClassArray = new Class[]{intefaceClass};
-
-        T server = (T) Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(),interfaceClassArray , new InvocationHandler() {
-
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                //判断是否是接口自定义方法
-                Method[] declaredMethods = intefaceClass.getDeclaredMethods();
-                if (Arrays.asList(declaredMethods).indexOf(method) < 0) {
-                    //super
-                    return method.invoke(proxy,args);
-                 }
-                return RpcClient.sendRpcRequest(method.getDeclaringClass().getPackage().getName(),intefaceClass, method.getName(), args);
-            }
-        });
-        return server;
-    }
 }
