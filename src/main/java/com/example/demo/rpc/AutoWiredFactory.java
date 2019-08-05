@@ -32,7 +32,6 @@ public class AutoWiredFactory {
     public void setBean(Class interfaceServer) {
         Object interfaceInfo = proxyFactory.getInterfaceInfo(interfaceServer);
         defaultListableBeanFactory.registerSingleton(StringUtils.lowerFirst(interfaceServer.getSimpleName()), interfaceInfo);
-
     }
 
 
