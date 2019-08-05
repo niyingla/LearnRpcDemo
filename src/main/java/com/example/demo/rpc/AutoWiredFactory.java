@@ -2,6 +2,7 @@ package com.example.demo.rpc;
 
 import com.example.demo.com.ProxyFactory;
 import com.example.demo.service.UserInfoService;
+import com.example.demo.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.stereotype.Component;
@@ -30,7 +31,7 @@ public class AutoWiredFactory {
 
     public void setBean(Class interfaceServer) {
         Object interfaceInfo = proxyFactory.getInterfaceInfo(interfaceServer);
-        defaultListableBeanFactory.registerSingleton(interfaceServer.getName(), interfaceInfo);
+        defaultListableBeanFactory.registerSingleton(StringUtils.lowerFirst(interfaceServer.getSimpleName()), interfaceInfo);
 
     }
 
