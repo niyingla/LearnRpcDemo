@@ -2,7 +2,6 @@ package com.example.demo.com;
 
 import com.example.demo.rpc.RpcClient;
 import com.example.demo.util.Addresser;
-import com.sun.org.apache.regexp.internal.RE;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -40,8 +39,6 @@ public class ProxyFactory {
                             return toString();
                         case "equals":
                             return equals(args);
-                        default:
-                            return null;
                     }
                 }
                 return RpcClient.sendRpcRequest(method.getDeclaringClass().getPackage().getName(),intefaceClass, method.getName(), args);
@@ -54,7 +51,7 @@ public class ProxyFactory {
 
             @Override
             public String toString() {
-                return intefaceClass.getSimpleName() + "@" + Integer.toHexString(hashCode());
+                return "proxy$"+intefaceClass.getName() + "@" + Integer.toHexString(hashCode());
             }
 
             @Override
@@ -63,7 +60,7 @@ public class ProxyFactory {
                 try {
                      address = Addresser.addressOf(this);
                 }catch (Exception e){
-
+                    e.printStackTrace();
                 }
                 return address.intValue();
             }

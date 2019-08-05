@@ -33,7 +33,7 @@ public class RpcServerPool {
             RpcServerDto rpcServerDto = serverDtoMap.get(serverName);
             for (RpcServerDto.Example example : rpcServerDto.getExamples()) {
                 //todo 循环创建连接
-                log.info("创建连接 服务: {}：ip: {} ,port: {}", serverName, example.getPort());
+                log.info("创建连接 服务: {}：ip: {} ,port: {}", serverName, example.getIp(), example.getPort());
                 //保存连接
             }
         }
