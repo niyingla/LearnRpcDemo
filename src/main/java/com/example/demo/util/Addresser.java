@@ -20,7 +20,7 @@ public class Addresser {
         }
     }
 
-    public static long addressOf(Object o) throws Exception {
+    public static long addressOf(Object o){
 
         Object[] array = new Object[] { o };
 
