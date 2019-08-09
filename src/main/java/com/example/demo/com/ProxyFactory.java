@@ -33,12 +33,10 @@ public class ProxyFactory {
                 //判断是否是接口自定义方法
                 Method[] declaredMethods = interfaceClass.getDeclaredMethods();
                 if (Arrays.asList(declaredMethods).indexOf(method) < 0) {
-                    //todo 后期优化
-                    switch (method.getName()){
-                        case "toString":
-                            return toString();
-                        case "equals":
-                            return equals(args);
+                    try {
+                        return method.invoke(this, args);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
                 return RpcClient.sendRpcRequest(method.getDeclaringClass().getPackage().getName(),interfaceClass, method.getName(), args);
