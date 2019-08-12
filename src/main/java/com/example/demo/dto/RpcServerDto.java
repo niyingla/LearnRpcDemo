@@ -23,14 +23,14 @@ public class RpcServerDto {
     @AllArgsConstructor
     public class Example{
         private String ip;
-        private String port;
+        private int port;
     }
 
     public RpcServerDto(String name) {
         this.name = name;
     }
 
-    public void addExample(String ip ,String port){
+    public void addExample(String ip ,int port){
         Example example = new Example(ip,port);
         examples.add(example);
 

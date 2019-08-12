@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import com.example.demo.dto.CompareDto;
-import com.example.demo.rpc.AutoWiredFactory;
 import com.example.demo.rpc.FrameWork;
 import com.example.demo.service.UserInfoService;
 import com.example.demo.util.IoUtils;
@@ -21,9 +20,6 @@ public class DemoApplicationTests {
     private FrameWork frameWork;
 
     @Autowired
-    private AutoWiredFactory autoWiredFactory;
-
-    @Autowired
     private ApplicationContext applicationContext;
 
 
@@ -38,11 +34,9 @@ public class DemoApplicationTests {
     }
 
     @Test
-    public void cxt()throws Exception{
+    public void cxt() {
         UserInfoService bean = applicationContext.getBean(UserInfoService.class);
         log.info(bean.getCompareDto("2333").toString());
         log.info(bean.toString());
-
     }
-
 }
