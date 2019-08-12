@@ -22,6 +22,10 @@ public class NettyServer {
     EventLoopGroup pGroup = new NioEventLoopGroup();
     EventLoopGroup cGroup = new NioEventLoopGroup();
 
+    /**
+     * 初始化服务端
+     * @throws Exception
+     */
     public void init()throws Exception{
         ServerBootstrap b = new ServerBootstrap();
         b.group(pGroup, cGroup)
@@ -38,11 +42,14 @@ public class NettyServer {
                         sc.pipeline().addLast(new ServerHeartBeatHandler());
                     }
                 });
-        ChannelFuture cf = b.bind(8765).sync();
+        ChannelFuture cf = b.bind(7002).sync();
         cf.channel().closeFuture().sync();
     }
 
 
+    /**
+     * 关闭连接
+     */
     public void shotDown(){
         pGroup.shutdownGracefully();
         cGroup.shutdownGracefully();

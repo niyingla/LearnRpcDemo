@@ -17,7 +17,6 @@ public class ServerHeartBeatHandler extends ChannelHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-
         if(msg instanceof RpcRequestDto){
             RpcRequestDto rpcRequestDto = (RpcRequestDto)msg;
             Object invoke = FrameWork.methodInvoke(rpcRequestDto.getClassPath(), rpcRequestDto.getMethodName(), rpcRequestDto.getArgs());

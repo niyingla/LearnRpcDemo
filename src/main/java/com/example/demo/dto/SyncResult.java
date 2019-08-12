@@ -14,11 +14,8 @@ public class SyncResult {
     Object Data = null;
 
     public Object getData() {
-
-        while (isRead) {
-            return Data;
+        while (!isRead) {
         }
-        //todo 超时返回null
-        return null;
+        return Data;
     }
 }

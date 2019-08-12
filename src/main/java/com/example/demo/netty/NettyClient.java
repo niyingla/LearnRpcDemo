@@ -22,6 +22,10 @@ public class NettyClient {
     private List<ChannelFuture> channelFutures = new ArrayList<>();
 
 
+    /**
+     * 初始化客户端
+     * @return
+     */
     public NettyClient initClient() {
         b.group(group)
                 .channel(NioSocketChannel.class)
@@ -37,6 +41,13 @@ public class NettyClient {
     }
 
 
+    /**
+     * 创建连接池内连接
+     * @param count
+     * @param ip
+     * @param port
+     * @return
+     */
     public NettyClient createConnect(int count, String ip, int port)  {
         for (int i = 0; i < count; i++) {
             ChannelFuture cf = null;
@@ -52,10 +63,17 @@ public class NettyClient {
 
     }
 
+    /**
+     * 随机获取一个连接
+     * @return
+     */
     public ChannelFuture getChannelFuture() {
         return channelFutures.get((int) (Math.random() * (channelFutures.size())));
     }
 
+    /**
+     * 关闭连接
+     */
     public void close() {
         group.shutdownGracefully();
     }

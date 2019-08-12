@@ -21,8 +21,10 @@ public class FutureResult {
      * @return
      */
     public static Object getResult(String requestId) {
+        //创建结果包装类
         SyncResult syncResult = new SyncResult();
         concurrentHashMap.put(requestId, syncResult);
+        //获取结果
         return syncResult.getData();
     }
 
@@ -35,12 +37,14 @@ public class FutureResult {
      */
     public static void putResult(String requestId, Object result) {
         for (; ; ) {
+            //自旋获取结果包装类
             SyncResult syncResult = concurrentHashMap.get(requestId);
+            //设置结果
             if (syncResult != null) {
                 syncResult.setData(result);
                 syncResult.setRead(true);
+                break;
             }
-            break;
         }
     }
 }
