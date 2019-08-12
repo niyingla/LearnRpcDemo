@@ -39,7 +39,7 @@ public class ProxyFactory {
                         e.printStackTrace();
                     }
                 }
-                return RpcClient.sendRpcRequest(method.getDeclaringClass().getPackage().getName(),interfaceClass, method.getName(), args);
+                return RpcClient.sendRpcRequest(method.getDeclaringClass().getPackage().getName(), interfaceClass, method.getName(), args);
             }
             @Override
             public boolean equals(Object obj) {

@@ -14,11 +14,10 @@ import java.lang.reflect.Method;
  * @author pikaqiu
  */
 @Component
-
 public class FrameWork {
 
     @Autowired
-    private ApplicationContext applicationContext;
+    private static ApplicationContext applicationContext;
 
     /**
      * 测试方法
@@ -41,7 +40,7 @@ public class FrameWork {
      * @throws InvocationTargetException
      * @throws IllegalAccessException
      */
-    public Object methodInvoke(String classPathStr,String methodStr,Object ... param) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static Object methodInvoke(String classPathStr,String methodStr,Object ... param) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         ClassLoader loader = ClassLoader.getSystemClassLoader();
         //获取类实例
         Class clazz = loader.loadClass(classPathStr);

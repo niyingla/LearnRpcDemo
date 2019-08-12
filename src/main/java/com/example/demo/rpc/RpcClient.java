@@ -1,8 +1,11 @@
 package com.example.demo.rpc;
 
 import com.example.demo.annotation.RpcServerCase;
-import com.example.demo.dto.CompareDto;
+import com.example.demo.dto.RpcRequestDto;
+import com.example.demo.util.ChannelUtils;
+import io.netty.channel.ChannelFuture;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,21 +17,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class RpcClient {
 
+    @Autowired
+    private static RpcServerPool rpcServerPool;
 
-    public static Object sendRpcRequest(String classPath,Class intefaceClass,String method,Object[] args){
+    public static Object sendRpcRequest(String classPath, Class intefaceClass, String method, Object[] args) {
         //参数对象转换成能字节  远程调用
         RpcServerCase rpcServerCase = (RpcServerCase) intefaceClass.getAnnotation(RpcServerCase.class);
-        if(rpcServerCase != null){
-           log.info(rpcServerCase.serverName());
+        if (rpcServerCase != null) {
+            log.info(rpcServerCase.serverName());
         }
-        //todo 发送远程请求
-        log.info("发送远程请求，请求类：{} 方法：{} 参数：{}",classPath,method,args);
-        //模拟返回
-        CompareDto compareDto = new CompareDto();
-        compareDto.setType("22222");
-        return compareDto;
-    }
+        RpcRequestDto rpcRequestDto = new RpcRequestDto(System.currentTimeMillis() + "", classPath, method, args, null);
+        ChannelFuture channel = rpcServerPool.getChannelByServerName(rpcServerCase.serverName());
 
+        return ChannelUtils.sendChannelRpcRequest(channel, rpcRequestDto);
+    }
 
 }
 

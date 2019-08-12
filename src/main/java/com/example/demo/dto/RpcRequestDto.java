@@ -1,6 +1,9 @@
 package com.example.demo.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * @program: demo
@@ -9,7 +12,8 @@ import lombok.Data;
  * @create: 2019-08-12 11:55
  **/
 @Data
-public class RpcRequestDto {
+@AllArgsConstructor
+public class RpcRequestDto implements Serializable {
 
     private String requestId;
 
@@ -18,4 +22,6 @@ public class RpcRequestDto {
     private String methodName;
 
     private Object[] args;
+
+    private Object result;
 }
