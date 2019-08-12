@@ -2,7 +2,7 @@ package com.example.demo;
 
 import com.example.demo.dto.CompareDto;
 import com.example.demo.rpc.AutoWiredFactory;
-import com.example.demo.rpc.FreamWork;
+import com.example.demo.rpc.FrameWork;
 import com.example.demo.service.UserInfoService;
 import com.example.demo.util.IoUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Slf4j
 public class DemoApplicationTests {
     @Autowired
-    private FreamWork freamWork;
+    private FrameWork frameWork;
 
     @Autowired
     private AutoWiredFactory autoWiredFactory;
@@ -31,7 +31,7 @@ public class DemoApplicationTests {
     public void contextLoads()throws Exception{
         CompareDto compareDto = new CompareDto();
         compareDto.setType("2222");
-        Object invoke = freamWork.methodInvoke("com.example.demo.rpc.FreamWork", "testRpc", compareDto);
+        Object invoke = frameWork.methodInvoke("com.example.demo.rpc.FreamWork", "testRpc", compareDto);
         byte[] objectByte = IoUtils.getObjectByte(invoke);
         Object objectByByte = IoUtils.getObjectByByte(objectByte);
         System.out.println(objectByByte);
