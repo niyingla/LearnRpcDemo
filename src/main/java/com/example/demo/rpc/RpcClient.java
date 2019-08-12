@@ -20,9 +20,9 @@ public class RpcClient {
     @Autowired
     private static RpcServerPool rpcServerPool;
 
-    public static Object sendRpcRequest(String classPath, Class intefaceClass, String method, Object[] args) {
+    public static Object sendRpcRequest(String classPath, Class interfaceClass, String method, Object[] args) {
         //参数对象转换成能字节  远程调用
-        RpcServerCase rpcServerCase = (RpcServerCase) intefaceClass.getAnnotation(RpcServerCase.class);
+        RpcServerCase rpcServerCase = (RpcServerCase) interfaceClass.getAnnotation(RpcServerCase.class);
         if (rpcServerCase != null) {
             log.info(rpcServerCase.serverName());
         }
