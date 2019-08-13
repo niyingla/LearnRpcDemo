@@ -3,6 +3,7 @@ package com.example.demo.netty;
 import com.example.demo.dto.RpcRequestDto;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.util.ReferenceCountUtil;
 
 
 /**
@@ -15,6 +16,7 @@ public class ClienHeartBeattHandler extends ChannelHandlerAdapter {
         if (msg instanceof RpcRequestDto) {
             RpcRequestDto rpcRequestDto = (RpcRequestDto) msg;
             FutureResult.putResult(rpcRequestDto.getRequestId(), rpcRequestDto.getResult());
+            ReferenceCountUtil.release(rpcRequestDto);
         }
     }
 }

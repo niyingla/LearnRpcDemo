@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 /**
  * 远程调用服务客户端类
  *
@@ -18,7 +20,14 @@ import org.springframework.stereotype.Component;
 public class RpcClient {
 
     @Autowired
+    private RpcServerPool _rpcServerPool;
+
     private static RpcServerPool rpcServerPool;
+
+    @PostConstruct
+    public void init() {
+        RpcClient.rpcServerPool = _rpcServerPool;
+    }
 
     public static Object sendRpcRequest(String classPath, Class interfaceClass, String method, Object[] args) {
         //参数对象转换成能字节  远程调用

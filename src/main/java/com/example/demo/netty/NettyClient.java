@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class NettyClient {
 
-    private static Bootstrap b = new Bootstrap();
-    private static EventLoopGroup group = new NioEventLoopGroup();
+    private Bootstrap b = new Bootstrap();
+    private EventLoopGroup group = new NioEventLoopGroup();
     private List<ChannelFuture> channelFutures = new ArrayList<>();
 
 
@@ -50,14 +50,18 @@ public class NettyClient {
      */
     public NettyClient createConnect(int count, String ip, int port)  {
         for (int i = 0; i < count; i++) {
-            ChannelFuture cf = null;
-            try {
-                cf = b.connect(ip, port).sync();
-                cf.channel().closeFuture().sync();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            channelFutures.add(cf);
+            Runnable runnable = () -> {
+                try {
+                    ChannelFuture cf = b.connect(ip, port);
+                    channelFutures.add(cf);
+                    cf.sync();
+                    cf.channel().closeFuture().sync();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            };
+            new Thread(runnable).start();
+
         }
         return this;
 

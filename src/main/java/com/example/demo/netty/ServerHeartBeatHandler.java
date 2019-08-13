@@ -5,6 +5,7 @@ import com.example.demo.dto.RpcRequestDto;
 import com.example.demo.rpc.FrameWork;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.util.ReferenceCountUtil;
 
 
 public class ServerHeartBeatHandler extends ChannelHandlerAdapter {
@@ -22,6 +23,7 @@ public class ServerHeartBeatHandler extends ChannelHandlerAdapter {
             Object invoke = FrameWork.methodInvoke(rpcRequestDto.getClassPath(), rpcRequestDto.getMethodName(), rpcRequestDto.getArgs());
             rpcRequestDto.setResult(invoke);
             ctx.writeAndFlush(rpcRequestDto);
+            ReferenceCountUtil.release(rpcRequestDto);
         }
     }
 }
