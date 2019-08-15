@@ -61,7 +61,17 @@ public class RpcServerPool {
     public ChannelFuture getChannelByServerName(String serverName) {
         //随机获取一个连接
         List<NettyClient> nettyClients = channelMap.get(serverName);
-        return nettyClients.get((int) (Math.random() * (nettyClients.size()))).getChannelFuture();
+        ChannelFuture channelFuture = null;
+        for (; nettyClients.size() > 0; ) {
+            channelFuture = nettyClients.get((int) (Math.random() * (nettyClients.size()))).getChannelFuture();
+
+            if (channelFuture != null && channelFuture.channel().isActive()) {
+                break;
+            } else {
+                nettyClients.remove(channelFuture);
+            }
+        }
+        return channelFuture;
     }
 
     public class RpcServerBuild {
