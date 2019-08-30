@@ -52,9 +52,8 @@ public class NettyClient {
         for (int i = 0; i < count; i++) {
             Runnable runnable = () -> {
                 try {
-                    ChannelFuture cf = b.connect(ip, port);
+                    ChannelFuture cf = b.connect(ip, port).sync();
                     channelFutures.add(cf);
-                    cf.sync();
                     cf.channel().closeFuture().sync();
                 } catch (Exception e) {
                     e.printStackTrace();
