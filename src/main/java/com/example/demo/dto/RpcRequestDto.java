@@ -14,6 +14,12 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 public class RpcRequestDto implements Serializable {
+    public RpcRequestDto(String requestId, String classPath, String methodName, Object[] args) {
+        this.requestId = requestId;
+        this.classPath = classPath;
+        this.methodName = methodName;
+        this.args = args;
+    }
 
     private String requestId;
 
@@ -24,4 +30,5 @@ public class RpcRequestDto implements Serializable {
     private Object[] args;
 
     private Object result;
+
 }

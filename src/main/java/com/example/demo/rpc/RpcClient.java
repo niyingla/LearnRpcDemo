@@ -35,7 +35,7 @@ public class RpcClient {
         if (rpcServerCase != null) {
             log.info(rpcServerCase.serverName());
         }
-        RpcRequestDto rpcRequestDto = new RpcRequestDto(System.currentTimeMillis() + "", classPath, method, args, null);
+        RpcRequestDto rpcRequestDto = new RpcRequestDto(System.currentTimeMillis() + "", classPath, method, args);
         ChannelFuture channel = rpcServerPool.getChannelByServerName(rpcServerCase.serverName());
 
         return ChannelUtils.sendChannelRpcRequest(channel, rpcRequestDto);
