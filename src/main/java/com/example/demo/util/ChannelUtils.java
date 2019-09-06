@@ -3,7 +3,6 @@ package com.example.demo.util;
 import com.example.demo.dto.RpcRequestDto;
 import com.example.demo.netty.FutureResult;
 import io.netty.channel.ChannelFuture;
-import io.netty.util.ReferenceCountUtil;
 
 /**
  * @program: demo
@@ -22,7 +21,7 @@ public class ChannelUtils {
      */
     public static Object sendChannelRpcRequest(ChannelFuture channel, RpcRequestDto rpcRequestDto) {
         channel.channel().writeAndFlush(rpcRequestDto);
-        ReferenceCountUtil.release(rpcRequestDto);
+//        ReferenceCountUtil.release(rpcRequestDto);
         //等待结果
        return FutureResult.getResult(rpcRequestDto.getRequestId());
     }

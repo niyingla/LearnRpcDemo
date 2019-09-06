@@ -42,7 +42,6 @@ public class FutureResult {
             //设置结果
             if (syncResult != null) {
                 syncResult.setData(result);
-                syncResult.setRead(true);
                 break;
             }
         }

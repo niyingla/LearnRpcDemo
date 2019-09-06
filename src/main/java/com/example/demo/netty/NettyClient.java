@@ -3,10 +3,12 @@ package com.example.demo.netty;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.timeout.IdleStateHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +31,12 @@ public class NettyClient {
     public NettyClient initClient() {
         b.group(group)
                 .channel(NioSocketChannel.class)
+                .option(ChannelOption.TCP_NODELAY, true)
+                .option(ChannelOption.SO_KEEPALIVE,true)
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel sc) throws Exception {
+                        sc.pipeline().addLast(new IdleStateHandler(0, 0, 30));
                         sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingDecoder());
                         sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingEncoder());
                         sc.pipeline().addLast(new ClienHeartBeattHandler());

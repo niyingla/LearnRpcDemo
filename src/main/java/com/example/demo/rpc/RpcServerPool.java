@@ -30,8 +30,9 @@ public class RpcServerPool {
     public void initAllConnect() {
 
         RpcServerBuild rpcServerPoolBuild = new RpcServerBuild();
-        rpcServerPoolBuild.serverAdd("user", "127.0.0.1", 7001)
-                .serverAdd("user", "127.0.0.1", 7002);
+        rpcServerPoolBuild.serverAdd("user", "192.168.7.25", 7001);
+ /*       rpcServerPoolBuild.serverAdd("user", "127.0.0.1", 7001)
+                .serverAdd("user", "127.0.0.1", 7002);*/
 
         for (String serverName : serverDtoMap.keySet()) {
             RpcServerDto rpcServerDto = serverDtoMap.get(serverName);
@@ -40,7 +41,7 @@ public class RpcServerPool {
                 log.info("创建连接 服务: {}：ip: {} ,port: {}", serverName, example.getIp(), example.getPort());
 
                 NettyClient nettyClient = new NettyClient();
-                nettyClient.initClient().createConnect(5, example.getIp(), example.getPort());
+                nettyClient.initClient().createConnect(1, example.getIp(), example.getPort());
 
                 List<NettyClient> nettyClients = channelMap.get(serverName);
 
