@@ -1,14 +1,14 @@
 package com.example.demo.rpc;
 
+import com.example.demo.annotation.RpcServerCase;
 import com.example.demo.com.ProxyFactory;
-import com.example.demo.service.UserInfoService;
+import com.example.demo.util.ScannerUtils;
 import com.example.demo.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,7 +23,8 @@ public class AutoWiredFactory {
     /**
      * 需要加載实例列表
      */
-    private List<Class> rpcInterFace = Arrays.asList(UserInfoService.class);
+    private List<Class> rpcInterFace = ScannerUtils.getAnnotations(RpcServerCase.class, "com.example.demo");
+
 
     @Autowired
     private DefaultListableBeanFactory defaultListableBeanFactory;
