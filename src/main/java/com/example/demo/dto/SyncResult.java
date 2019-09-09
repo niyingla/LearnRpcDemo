@@ -40,7 +40,7 @@ public class SyncResult {
         Data = data;
         this.isRead = true;
         synchronized (lock) {
-            lock.notify();
+            lock.notifyAll();
         }
     }
 }
