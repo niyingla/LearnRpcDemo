@@ -17,27 +17,24 @@ import java.util.List;
 @Component
 public class AutoWiredFactory {
 
-    @Autowired
-    private ProxyFactory proxyFactory;
-
     /**
      * 需要加載实例列表
      */
     private List<Class> rpcInterFace = ScannerUtils.getAnnotations(RpcServerCase.class, "com.example.demo");
-
 
     @Autowired
     private DefaultListableBeanFactory defaultListableBeanFactory;
 
 
     public void setBean(Class interfaceServer) {
+        ProxyFactory proxyFactory = new ProxyFactory();
         Object interfaceInfo = proxyFactory.getInterfaceInfo(interfaceServer);
         defaultListableBeanFactory.registerSingleton(StringUtils.lowerFirst(interfaceServer.getSimpleName()), interfaceInfo);
     }
 
 
     /**
-     * todo 通过扫描获取所有rpc代理类
+     * 通过扫描获取所有rpc代理类
      */
     @PostConstruct
     public void autoWiredRpcProxy() {
