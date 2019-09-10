@@ -77,6 +77,13 @@ public class RpcServerPool {
 
     public class RpcServerBuild {
 
+        /**
+         * 添加服务名和参数
+         * @param serverName
+         * @param ip
+         * @param port
+         * @return
+         */
         public RpcServerBuild serverAdd(String serverName, String ip, int port) {
             RpcServerDto serverDto = serverDtoMap.get(serverName);
 
