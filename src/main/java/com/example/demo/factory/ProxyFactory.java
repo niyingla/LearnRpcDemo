@@ -1,4 +1,4 @@
-package com.example.demo.com;
+package com.example.demo.factory;
 
 import com.example.demo.rpc.RpcFactory;
 import lombok.extern.slf4j.Slf4j;
