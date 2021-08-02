@@ -4,6 +4,8 @@ import com.example.demo.dto.RpcServerDto;
 import com.example.demo.netty.NettyClient;
 import io.netty.channel.ChannelFuture;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -18,9 +20,8 @@ import java.util.Map;
  * @author pikaqiu
  */
 @Component
-@Slf4j
 public class RpcServerPool implements ApplicationListener<ApplicationStartedEvent> {
-
+    static Logger log = LoggerFactory.getLogger(RpcClient.class.getName());
     private final Map<String, RpcServerDto> serverDtoMap = new HashMap<>();
 
     private Map<String, List<NettyClient>> channelMap = new HashMap<>();
@@ -32,8 +33,6 @@ public class RpcServerPool implements ApplicationListener<ApplicationStartedEven
 
         RpcServerBuild rpcServerPoolBuild = new RpcServerBuild();
         rpcServerPoolBuild.serverAdd("user", "127.0.0.1", 7001);
- /*       rpcServerPoolBuild.serverAdd("user", "127.0.0.1", 7001)
-                .serverAdd("user", "127.0.0.1", 7002);*/
 
         for (String serverName : serverDtoMap.keySet()) {
             RpcServerDto rpcServerDto = serverDtoMap.get(serverName);

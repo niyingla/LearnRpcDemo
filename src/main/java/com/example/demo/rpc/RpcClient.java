@@ -6,6 +6,8 @@ import com.example.demo.dto.RpcRequestDto;
 import com.example.demo.util.ChannelUtils;
 import io.netty.channel.ChannelFuture;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,8 @@ import javax.annotation.PostConstruct;
 @Slf4j
 @Component
 public class RpcClient {
+
+    static Logger log = LoggerFactory.getLogger(RpcClient.class.getName());
 
     @Autowired
     private RpcServerPool _rpcServerPool;

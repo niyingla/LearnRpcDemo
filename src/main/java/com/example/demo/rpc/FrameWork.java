@@ -1,34 +1,32 @@
 package com.example.demo.rpc;
 
-import com.example.demo.dto.CompareDto;
+import com.example.demo.annotation.RpcServerCase;
 import com.example.demo.util.ClassUtils;
+import com.example.demo.util.ScannerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 
 
 /**
  * @author pikaqiu
  */
-@Component
-public class FrameWork {
+public class FrameWork implements ApplicationListener<ApplicationStartedEvent>  {
 
     @Autowired
     private static ApplicationContext applicationContext;
 
-    /**
-     * 测试方法
-     * @param compareDto
-     * @return
-     */
-    public CompareDto testRpc(CompareDto compareDto) {
-        compareDto.setType(compareDto.getType() + "3333");
-        return compareDto;
-    }
 
+    @Override
+    public void onApplicationEvent(ApplicationStartedEvent applicationEvent) {
+        FrameWork.applicationContext = applicationEvent.getApplicationContext();
+    }
     /**
      *  通过反射调用目标方法
      * @param classPathStr

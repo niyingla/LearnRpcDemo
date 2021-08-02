@@ -1,0 +1,5 @@
+# ApplicationListener ʵ������
+org.springframework.context.ApplicationListener=\
+com.example.demo.rpc.FrameWork\
+
+ 
