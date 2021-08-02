@@ -44,7 +44,7 @@ public class Client {
 						sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingEncoder());
 						//超时handler（当服务器端与客户端在指定时间以上没有任何进行通信，则会关闭响应的通道，主要为减小服务端资源占用）
 						sc.pipeline().addLast(new ReadTimeoutHandler(5));
-						sc.pipeline().addLast(new ClientHandler());
+//						sc.pipeline().addLast(new ClientHandler());
 					}
 		    });
 	}

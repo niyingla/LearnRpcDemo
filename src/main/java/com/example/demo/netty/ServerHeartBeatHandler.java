@@ -5,10 +5,11 @@ import com.example.demo.dto.RpcRequestDto;
 import com.example.demo.rpc.FrameWork;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
 
 
-public class ServerHeartBeatHandler extends ChannelHandlerAdapter {
+public class ServerHeartBeatHandler extends ChannelInboundHandlerAdapter {
 
     /**
      * 接受远程请求 并响应结果

@@ -4,6 +4,8 @@ import com.example.demo.dto.RpcServerDto;
 import com.example.demo.netty.NettyClient;
 import io.netty.channel.ChannelFuture;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -17,7 +19,7 @@ import java.util.Map;
  */
 @Component
 @Slf4j
-public class RpcServerPool {
+public class RpcServerPool implements ApplicationListener<ApplicationStartedEvent> {
 
     private final Map<String, RpcServerDto> serverDtoMap = new HashMap<>();
 
@@ -26,11 +28,10 @@ public class RpcServerPool {
     /**
      * 初始化所有连接
      */
-    @PostConstruct
     public void initAllConnect() {
 
         RpcServerBuild rpcServerPoolBuild = new RpcServerBuild();
-        rpcServerPoolBuild.serverAdd("user", "192.168.7.25", 7001);
+        rpcServerPoolBuild.serverAdd("user", "127.0.0.1", 7001);
  /*       rpcServerPoolBuild.serverAdd("user", "127.0.0.1", 7001)
                 .serverAdd("user", "127.0.0.1", 7002);*/
 
@@ -96,6 +97,11 @@ public class RpcServerPool {
             return this;
         }
 
+    }
+
+    @Override
+    public void onApplicationEvent(ApplicationStartedEvent applicationEvent) {
+        initAllConnect();
     }
 
 }

@@ -33,7 +33,7 @@ public class RpcClient {
         //参数对象转换成能字节  远程调用
         RpcServerCase rpcServerCase = (RpcServerCase) interfaceClass.getAnnotation(RpcServerCase.class);
         if (rpcServerCase != null) {
-            log.info(rpcServerCase.serverName());
+            log.info("发起远程请求 请求目标服务：{}",rpcServerCase.serverName());
         }
         RpcRequestDto rpcRequestDto = new RpcRequestDto(System.currentTimeMillis() + "", classPath, method, args);
         ChannelFuture channel = rpcServerPool.getChannelByServerName(rpcServerCase.serverName());

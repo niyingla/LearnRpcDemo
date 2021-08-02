@@ -22,7 +22,7 @@ public class ChannelUtils {
      */
     public static Object sendChannelRpcRequest(ChannelFuture channel, RpcRequestDto rpcRequestDto) {
         channel.channel().writeAndFlush(rpcRequestDto);
-        ReferenceCountUtil.release(rpcRequestDto);
+//        ReferenceCountUtil.release(rpcRequestDto);
         //等待结果
        return FutureResult.getResult(rpcRequestDto.getRequestId());
     }

@@ -1,14 +1,13 @@
 package com.example.demo.netty;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.buffer.PooledByteBufAllocator;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,19 +28,21 @@ public class NettyClient {
      * @return
      */
     public NettyClient initClient() {
+        //2 辅助类(注意Client 和 Server 不一样)
         b.group(group)
-                .channel(NioSocketChannel.class)
-                .option(ChannelOption.TCP_NODELAY, true)
-                .option(ChannelOption.SO_KEEPALIVE,true)
-                .handler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    protected void initChannel(SocketChannel sc) throws Exception {
-                        sc.pipeline().addLast(new IdleStateHandler(0, 0, 30));
-                        sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingDecoder());
-                        sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingEncoder());
-                        sc.pipeline().addLast(new ClienHeartBeattHandler());
-                    }
-                });
+        .channel(NioSocketChannel.class)
+        //表示缓存区动态调配（自适应）
+        .option(ChannelOption.RCVBUF_ALLOCATOR, AdaptiveRecvByteBufAllocator.DEFAULT)
+        //缓存区 池化操作
+        .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
+        .handler(new LoggingHandler(LogLevel.INFO))
+            .handler(new ChannelInitializer<SocketChannel>() {
+                @Override
+                protected void initChannel(SocketChannel sc) throws Exception {
+                    sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingDecoder());
+                    sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingEncoder());
+                }
+            });
         return this;
     }
 
