@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>rpc-client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>demo-client</name>
     <description>Demo project for Spring Boot</description>
@@ -63,9 +63,13 @@
         <dependency>
             <groupId>org.jboss.marshalling</groupId>
             <artifactId>jboss-marshalling</artifactId>
-            <version>1.3.11.GA</version>
+            <version>1.3.0.CR9</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.jboss.marshalling</groupId>
+            <artifactId>jboss-marshalling-serial</artifactId>
+            <version>1.3.0.CR9</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

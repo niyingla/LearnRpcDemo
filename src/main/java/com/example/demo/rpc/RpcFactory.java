@@ -30,6 +30,6 @@ public class RpcFactory<T> implements InvocationHandler {
                 e.printStackTrace();
             }
         }
-        return RpcClient.sendRpcRequest(method.getDeclaringClass().getPackage().getName(), rpcInterface, method.getName(), args);
+        return RpcClient.sendRpcRequest(rpcInterface, method.getName(), args);
     }
 }

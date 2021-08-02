@@ -3,7 +3,6 @@ package com.example.demo.util;
 import com.example.demo.dto.RpcRequestDto;
 import com.example.demo.netty.FutureResult;
 import io.netty.channel.ChannelFuture;
-import io.netty.util.ReferenceCountUtil;
 
 /**
  * @program: demo

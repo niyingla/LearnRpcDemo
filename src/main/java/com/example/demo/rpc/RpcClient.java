@@ -29,13 +29,13 @@ public class RpcClient {
         RpcClient.rpcServerPool = _rpcServerPool;
     }
 
-    public static Object sendRpcRequest(String classPath, Class interfaceClass, String method, Object[] args) {
+    public static Object sendRpcRequest( Class interfaceClass, String method, Object[] args) {
         //参数对象转换成能字节  远程调用
         RpcServerCase rpcServerCase = (RpcServerCase) interfaceClass.getAnnotation(RpcServerCase.class);
         if (rpcServerCase != null) {
             log.info("发起远程请求 请求目标服务：{}",rpcServerCase.serverName());
         }
-        RpcRequestDto rpcRequestDto = new RpcRequestDto(System.currentTimeMillis() + "", classPath, method, args);
+        RpcRequestDto rpcRequestDto = new RpcRequestDto(System.currentTimeMillis() + "", interfaceClass.getName(), method, args);
         ChannelFuture channel = rpcServerPool.getChannelByServerName(rpcServerCase.serverName());
 
         return ChannelUtils.sendChannelRpcRequest(channel, rpcRequestDto);
