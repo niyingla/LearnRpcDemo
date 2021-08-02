@@ -3,6 +3,8 @@ package com.example.demo.util;
 import com.example.demo.dto.RpcRequestDto;
 import com.example.demo.netty.FutureResult;
 import io.netty.channel.ChannelFuture;
+import io.netty.util.ReferenceCountUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @program: demo
@@ -10,6 +12,7 @@ import io.netty.channel.ChannelFuture;
  * @author: xiaoye
  * @create: 2019-08-12 15:02
  **/
+@Slf4j
 public class ChannelUtils {
 
     /**

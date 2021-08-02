@@ -1,5 +1,6 @@
 package com.example.demo.rpc;
 
+import com.alibaba.fastjson.JSON;
 import com.example.demo.annotation.RpcServerCase;
 import com.example.demo.dto.RpcRequestDto;
 import com.example.demo.util.ChannelUtils;
@@ -32,12 +33,9 @@ public class RpcClient {
     public static Object sendRpcRequest( Class interfaceClass, String method, Object[] args) {
         //参数对象转换成能字节  远程调用
         RpcServerCase rpcServerCase = (RpcServerCase) interfaceClass.getAnnotation(RpcServerCase.class);
-        if (rpcServerCase != null) {
-            log.info("发起远程请求 请求目标服务：{}",rpcServerCase.serverName());
-        }
         RpcRequestDto rpcRequestDto = new RpcRequestDto(System.currentTimeMillis() + "", interfaceClass.getName(), method, args);
         ChannelFuture channel = rpcServerPool.getChannelByServerName(rpcServerCase.serverName());
-
+        log.info("发起远程请求 请求目标服务：{} 目标方法：{}.{} 参数:{}", rpcServerCase.serverName(), interfaceClass.getName(), method, JSON.toJSONString(args));
         return ChannelUtils.sendChannelRpcRequest(channel, rpcRequestDto);
     }
 
